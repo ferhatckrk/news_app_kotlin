@@ -3,9 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
-
     id "androidx.navigation.safeargs.kotlin"
     id "org.jetbrains.kotlin.kapt"
+    id 'com.google.dagger.hilt.android'
+
 
 }
 
@@ -64,7 +65,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
 
-
 // Architectural Components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 
@@ -97,8 +97,22 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
 
+    def hilt = "2.48.1"
+    //Dagger hilt
+    implementation "com.google.dagger:hilt-android:$hilt"
+    kapt "com.google.dagger:hilt-compiler:$hilt"
 
+    implementation "com.google.dagger:hilt-android:$hilt"
+    annotationProcessor "com.google.dagger:hilt-compiler:$hilt"
 
 
 }
+
+
  
+ 
+
+kapt {
+    correctErrorTypes true
+}
+
