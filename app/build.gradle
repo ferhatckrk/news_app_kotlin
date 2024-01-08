@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id "androidx.navigation.safeargs.kotlin"
+    id 'com.google.dagger.hilt.android'
+
 }
 
 android {
@@ -61,13 +63,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
 
-
 // Architectural Components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 
 // Room
-    implementation "androidx.room:room-runtime:2.2.5"
-    kapt "androidx.room:room-compiler:2.2.5"
+    implementation "androidx.room:room-runtime:2.6.1"
+    kapt "androidx.room:room-compiler:2.6.1"
 
 // Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.2.5"
@@ -94,7 +95,17 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
 
+    def hilt = "2.48.1"
+    //Dagger hilt
+    implementation "com.google.dagger:hilt-android:$hilt"
+    kapt "com.google.dagger:hilt-compiler:$hilt"
+
+    implementation "com.google.dagger:hilt-android:$hilt"
+    annotationProcessor "com.google.dagger:hilt-compiler:$hilt"
 
 
+}
 
+kapt {
+    correctErrorTypes true
 }

@@ -20,25 +20,33 @@ import com.example.newsapp.databinding.ActivityNewsBinding
 import com.example.newsapp.db.ArticleDatabase
 import com.example.newsapp.repository.NewsRespository
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-class NewsActivity : AppCompatActivity() {
+
+@AndroidEntryPoint
+class NewsActivity  : AppCompatActivity() {
 
     private lateinit var binding :  ActivityNewsBinding
 
-    lateinit var  viewModel : NewsViewModel
+      var  viewModel : NewsViewModel? = null
 
 
+    override fun onStart() {
+        super.onStart()
+       val newsRepository = NewsRespository(ArticleDatabase(this))
+        val viewModelProviderFactory= NewsViewModelProviderFactory( newsRepository)
+
+        viewModel=ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val newsRepository = NewsRespository(ArticleDatabase(this))
-        val viewModelProviderFactory= NewsViewModelProviderFactory(newsRespository = newsRepository)
-
-        viewModel=ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
 
 
 
